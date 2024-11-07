@@ -1,40 +1,31 @@
 "use client";
 
 import { useState } from "react";
-import { categories } from "@/consts/categories";
+import { ICategory } from "@/types/types";
+import { Button } from "@/components/Button";
 
-interface ICategories {
-  props: any;
+interface ICategoriesProps {
+  categories: ICategory[];
 }
 
-export const Categories = ({ props }: ICategories) => {
-  const [categoriesId, setCategoriesId] = useState<number>(0);
+export const Categories = ({ categories }: ICategoriesProps) => {
+  const [categoriesId, setCategoriesId] = useState<string>("0");
 
   return (
-    <div className="h-14 w-max border border-customBlue rounded-2xl p-1.5 flex items-center justify-between gap-x-4 mb-10">
+    <div className="h-14 w-max p-1.5 flex items-center justify-between gap-x-4 mb-10">
       <div className="flex items-center justify-between gap-x-2">
-        <div
-          onClick={() => setCategoriesId(0)}
-          className={`${
-            categoriesId === 0
-              ? "bg-customBlue text-white"
-              : "hover:bg-customBlueLight hover:border hover:border-customBlue"
-          } py-2.5 px-6 cursor-pointer transition-all duration-300 rounded-2xl border border-white`}
-        >
-          Все
-        </div>
+        <Button
+          setItemId={setCategoriesId}
+          itemId={categoriesId}
+          item={{ id: "0", name: "Все" }}
+        />
         {categories.map((c) => (
-          <div
-            onClick={() => setCategoriesId(c.id)}
-            className={`${
-              categoriesId === c.id
-                ? "bg-customBlue text-white"
-                : "hover:bg-customBlueLight hover:border hover:border-customBlue"
-            } py-2.5 px-6 cursor-pointer transition-all duration-700 rounded-2xl border border-white`}
+          <Button
             key={c.id}
-          >
-            {c.name}
-          </div>
+            setItemId={setCategoriesId}
+            itemId={categoriesId}
+            item={c}
+          />
         ))}
       </div>
     </div>
