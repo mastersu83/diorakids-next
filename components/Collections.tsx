@@ -18,11 +18,11 @@ export const Collections = ({ collections }: ICollectionsProps) => {
         <Button
           setItemId={setCollectionId}
           itemId={collectionId}
-          item={{ id: "0", name: "Все" }}
+          item={{ _id: "0", name: "Все" }}
         />
         {collections.map((c) => (
           <Button
-            key={c.id}
+            key={c._id}
             setItemId={setCollectionId}
             itemId={collectionId}
             item={c}

@@ -17,11 +17,11 @@ export const Categories = ({ categories }: ICategoriesProps) => {
         <Button
           setItemId={setCategoriesId}
           itemId={categoriesId}
-          item={{ id: "0", name: "Все" }}
+          item={{ _id: "0", name: "Все" }}
         />
         {categories.map((c) => (
           <Button
-            key={c.id}
+            key={c._id}
             setItemId={setCategoriesId}
             itemId={categoriesId}
             item={c}

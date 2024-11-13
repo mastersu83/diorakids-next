@@ -13,12 +13,11 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^5.22.0",
+    "@types/mongoose": "^5.11.97",
     "ky": "^1.7.2",
     "lucide-react": "^0.454.0",
+    "mongoose": "^8.8.1",
     "next": "15.0.2",
-    "nextjs-breadcrumbs": "^1.1.9",
-    "prisma": "^5.22.0",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028"
   },

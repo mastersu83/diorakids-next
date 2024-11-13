@@ -1,55 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/prisma/prisma-client";
-import { ISize } from "@/types/types";
+import { dbConnect } from "@/mongoose/db";
+import { Cloth } from "@/mongoose/models/clothModel";
 
 export async function GET(req: NextRequest) {
-  const models = await prisma.models.findMany({
-    include: {
-      collection: true,
-    },
-  });
+  await dbConnect();
 
-  return NextResponse.json(models);
+  // const _id = req.nextUrl.searchParams.get("_id") || "";
+
+  // const category = await Category.find({ _id });
+  const clothes = await Cloth.find().populate("collectionId categoryId");
+
+  return NextResponse.json(clothes);
 }
 
 export async function POST(req: NextRequest) {
-  const {
-    name,
-    sizes,
-    images,
-    price,
-    description,
-    wbLink,
-    collectionId,
-    article,
-    categoryId,
-  } = await req.json();
+  const data = await req.json();
 
-  const findModel = await prisma.models.findFirst({
-    where: { name },
-  });
+  const findCloth = await Cloth.findOne({ name: data.name });
 
-  if (!findModel) {
-    // const newSizes = await prisma.sizes.createMany({ data: sizes });
-    const newModel = await prisma.models.create({
-      data: {
-        name,
-        sizes,
-        images,
-        price,
-        description,
-        wbLink,
-        collectionId,
-        article,
-        categoryId,
-      },
-    });
-
-    return NextResponse.json({ newModel });
+  if (!findCloth) {
+    const cloth = await Cloth.create(data);
+    return NextResponse.json(cloth);
   }
 
-  return NextResponse.json({
-    name: "Такая модель уже есть",
-    findModel,
-  });
+  return NextResponse.json({ message: "Такая модель уже есть" });
 }
