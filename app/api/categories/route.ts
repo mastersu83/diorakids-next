@@ -1,25 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/prisma/prisma-client";
+import { dbConnect } from "@/mongoose/db";
+import { Category } from "@/mongoose/models/categoryModel";
 
 export async function GET(req: NextRequest) {
-  const categories = await prisma.category.findMany();
+  await dbConnect();
+
+  // const _id = req.nextUrl.searchParams.get("_id") || "";
+
+  // const category = await Category.find({ _id });
+  const categories = await Category.find();
 
   return NextResponse.json(categories);
 }
 
 export async function POST(req: NextRequest) {
-  const { name } = await req.json();
+  const data = await req.json();
 
-  const findCategory = await prisma.category.findFirst({
-    where: { name },
-  });
+  const findCategory = await Category.findOne({ name: data.name });
 
   if (!findCategory) {
-    const category = await prisma.category.create({ data: { name } });
+    const category = await Category.create(data);
     return NextResponse.json(category);
   }
 
-  return NextResponse.json({
-    name: "Такая категория уже есть",
-  });
+  return NextResponse.json({ message: "Такая модель уже есть" });
 }

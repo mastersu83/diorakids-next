@@ -8,15 +8,15 @@ interface IButton {
 
 export const Button = ({ itemId, setItemId, item }: IButton) => {
   return (
-    <button
-      onClick={() => setItemId(item.id)}
+    <div
+      onClick={() => setItemId(item._id)}
       className={`${
-        itemId === item.id
+        itemId === item._id
           ? "bg-customBlue text-white"
           : "hover:bg-customBlueLight"
       } py-2.5 px-6 flex items-center justify-center gap-x-2 border border-customBlue h-12 w-full rounded-2xl cursor-pointer transition-all duration-300`}
     >
       {item.name}
-    </button>
+    </div>
   );
 };

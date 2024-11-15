@@ -1,8 +1,9 @@
 "use client";
 
+import { collections } from "@/consts/collections";
 import { useState } from "react";
 import { ICollection } from "@/types/types";
-import { MenuButton } from "@/components/MenuButton";
+import { Button } from "@/components/Button";
 
 interface ICollectionsProps {
   collections: ICollection[];
@@ -14,14 +15,14 @@ export const Collections = ({ collections }: ICollectionsProps) => {
     <div className="">
       <div className="text-3xl mb-5">Коллекции</div>
       <div className="flex flex-col items-center justify-center gap-y-5">
-        <MenuButton
+        <Button
           setItemId={setCollectionId}
           itemId={collectionId}
-          item={{ id: "0", name: "Все" }}
+          item={{ _id: "0", name: "Все" }}
         />
         {collections.map((c) => (
-          <MenuButton
-            key={c.id}
+          <Button
+            key={c._id}
             setItemId={setCollectionId}
             itemId={collectionId}
             item={c}

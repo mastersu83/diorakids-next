@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ICategory } from "@/types/types";
-import { MenuButton } from "@/components/MenuButton";
+import { Button } from "@/components/Button";
 
 interface ICategoriesProps {
   categories: ICategory[];
@@ -14,14 +14,14 @@ export const Categories = ({ categories }: ICategoriesProps) => {
   return (
     <div className="h-14 w-max p-1.5 flex items-center justify-between gap-x-4 mb-10">
       <div className="flex items-center justify-between gap-x-2">
-        <MenuButton
+        <Button
           setItemId={setCategoriesId}
           itemId={categoriesId}
-          item={{ id: "0", name: "Все" }}
+          item={{ _id: "0", name: "Все" }}
         />
         {categories.map((c) => (
-          <MenuButton
-            key={c.id}
+          <Button
+            key={c._id}
             setItemId={setCategoriesId}
             itemId={categoriesId}
             item={c}
