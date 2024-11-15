@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const formData = await req.formData();
+
+  const fileName = [];
   const formDataEntryValues = Array.from(formData.values());
   for (const formDataEntryValue of formDataEntryValues) {
     if (
@@ -14,7 +16,8 @@ export async function POST(req: Request) {
       } & Blob;
       const buffer = Buffer.from(await file.arrayBuffer());
       fs.writeFileSync(`public/uploads/${file.name}`, buffer);
+      fileName.push(file.name);
     }
   }
-  return NextResponse.json({ success: true });
+  return NextResponse.json({ success: true, fileName });
 }

@@ -1,10 +1,10 @@
 export interface ICategory {
-  _id: string;
+  id: string;
   name: string;
 }
 
 export interface ICollection {
-  _id: string;
+  id: string;
   name: string;
 }
 
