@@ -7,57 +7,63 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model collections {
+model collection {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  model     models[]
+  model     cloth[]
 }
 
-model categories {
+model category {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   name String @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  model     models[]
+  model     cloth[]
 }
 
-model models {
-  id     String  @id @default(auto()) @map("_id") @db.ObjectId
-  name   String
-  sizes  Size[]
-  images Image[]
+model cloth {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+
+  sizes size[]
+
+  images image[]
 
   price       Int
   description String
   article     Int
   wbLink      String
 
-  collection   collections @relation(fields: [collectionId], references: [id])
-  collectionId String      @db.ObjectId
+  collection   collection @relation(fields: [collectionId], references: [id])
+  collectionId String     @db.ObjectId
 
-  category   categories @relation(fields: [categoryId], references: [id])
-  categoryId String     @db.ObjectId
+  category   category @relation(fields: [categoryId], references: [id])
+  categoryId String   @db.ObjectId
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model sizes {
+model size {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   size     Int
   quantity Int
+  cloth    cloth  @relation(fields: [clothId], references: [id])
+  clothId  String @db.ObjectId
 }
 
-type Image {
+model image {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
   imageUrl String
+  cloth    cloth  @relation(fields: [clothId], references: [id])
+  clothId  String @db.ObjectId
 }
 
-type Size {
-  id       Int
-  size     Int
-  quantity Int
-}
+// type upload {
+//   size     Int
+//   quantity Int
+// }

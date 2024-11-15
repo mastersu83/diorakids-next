@@ -1,7 +1,7 @@
 import { prisma } from "./prisma-client";
 
 async function up() {
-  await prisma.collections.createMany({
+  await prisma.collection.createMany({
     data: [
       {
         name: "Львята",
@@ -11,7 +11,7 @@ async function up() {
       },
     ],
   });
-  await prisma.categories.createMany({
+  await prisma.category.createMany({
     data: [
       {
         name: "Комбинезоны",
@@ -36,8 +36,8 @@ async function up() {
 }
 
 async function down() {
-  await prisma.collections.deleteMany();
-  await prisma.categories.deleteMany();
+  await prisma.collection.deleteMany();
+  await prisma.category.deleteMany();
 }
 
 async function main() {

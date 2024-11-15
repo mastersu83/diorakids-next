@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/prisma-client";
-import { ISize } from "@/types/types";
 
 export async function GET(req: NextRequest) {
-  const models = await prisma.models.findMany({
+  const models = await prisma.cloth.findMany({
     include: {
-      collection: true,
+      sizes: true,
+      images: true,
     },
   });
 
@@ -25,17 +25,22 @@ export async function POST(req: NextRequest) {
     categoryId,
   } = await req.json();
 
-  const findModel = await prisma.models.findFirst({
+  // const newSizes = await prisma.size.createMany({
+  //   data: upload,
+  // });
+
+  const findModel = await prisma.cloth.findFirst({
     where: { name },
   });
 
   if (!findModel) {
-    // const newSizes = await prisma.sizes.createMany({ data: sizes });
-    const newModel = await prisma.models.create({
+    const newModel = await prisma.cloth.create({
       data: {
         name,
-        sizes,
-        images,
+        sizes: {
+          create: sizes,
+        },
+        images: { create: images },
         price,
         description,
         wbLink,
@@ -50,6 +55,5 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({
     name: "Такая модель уже есть",
-    findModel,
   });
 }

@@ -6,7 +6,7 @@ interface IButton {
   item: ICollection;
 }
 
-export const Button = ({ itemId, setItemId, item }: IButton) => {
+export const MenuButton = ({ itemId, setItemId, item }: IButton) => {
   return (
     <button
       onClick={() => setItemId(item.id)}
