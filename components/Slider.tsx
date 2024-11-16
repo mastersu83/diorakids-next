@@ -1,10 +1,6 @@
 import Image from "next/image";
 
-interface ISlider {
-  props: any;
-}
-
-export const Slider = ({ props }: ISlider) => {
+export const Slider = () => {
   return (
     <div className="h-[765px] flex flex-col gap-y-4 overflow-hidden">
       <div>

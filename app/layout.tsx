@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Layout } from "@/components/Layout";
+import { MiLayout } from "@/components/MiLayout";
 
 export const metadata: Metadata = {
   title: "Diora Kids",
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Layout>{children}</Layout>
+        <MiLayout>{children}</MiLayout>
       </body>
     </html>
   );

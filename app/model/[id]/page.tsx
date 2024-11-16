@@ -5,17 +5,13 @@ import { Slider } from "@/components/Slider";
 import { SizesTable } from "@/components/SizesTable";
 import { CategoryModels } from "@/components/CategoryModels";
 
-interface IPage {
-  props: any;
-}
-
-const Page = ({ props }: IPage) => {
+export default async function Page() {
   return (
     <div className="">
       <CustomBreadcrumbs props={""} />
       <div className="grid grid-cols-2 gap-x-6">
         <div className="grid grid-cols-[130px_1fr] justify-items-center">
-          <Slider {...props} />
+          <Slider />
           <div>
             <Image
               width={510}
@@ -42,6 +38,4 @@ const Page = ({ props }: IPage) => {
       </div>
     </div>
   );
-};
-
-export default Page;
+}

@@ -13,3 +13,8 @@ export type ISize = {
   name: string;
   quantity: number;
 };
+
+export interface IImage {
+  id: string;
+  imageUrl: string;
+}

@@ -1,20 +1,27 @@
+"use client";
+
 import Image from "next/image";
+import useSWR from "swr";
+import { getImages } from "@/service/imagesApi";
+import React from "react";
 
-interface ImagesGalleryProps {
-  images: string[];
-}
+export const ImagesGallery = () => {
+  const { data: images } = useSWR("images", getImages);
 
-export const ImagesGallery = ({ images }: ImagesGalleryProps) => {
+  if (!images) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="flex flex-wrap">
       {images.map((image) => (
-        <div key={image} className="px-2 h-auto w-1/2">
+        <div key={image.id} className="px-2 h-auto w-1/2">
           <Image
-            key={image}
-            src={"/uploads/" + image}
-            width={400}
-            height={400}
-            alt={image}
+            width={300}
+            height={300}
+            key={image.id}
+            src={"/uploads/" + image.imageUrl}
+            alt={image.imageUrl}
             className="object-cover w-full"
           />
         </div>

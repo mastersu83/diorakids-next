@@ -1,15 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { ICategory } from "@/types/types";
 import { MenuButton } from "@/components/MenuButton";
+import useSWR from "swr";
+import { getCategories } from "@/service/categoriesApi";
 
-interface ICategoriesProps {
-  categories: ICategory[];
-}
-
-export const Categories = ({ categories }: ICategoriesProps) => {
+export const Categories = () => {
+  const { data: categories } = useSWR("categories", getCategories);
   const [categoriesId, setCategoriesId] = useState<string>("0");
+
+  if (!categories) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="h-14 w-max p-1.5 flex items-center justify-between gap-x-4 mb-10">

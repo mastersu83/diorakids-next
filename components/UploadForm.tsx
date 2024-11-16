@@ -1,32 +1,34 @@
-"use client"; // Make this component a client component
+"use client";
+
 import React, { FormEvent, useState } from "react";
 import Image from "next/image";
-import { createImage } from "@/service/clothesApi";
 import { cn } from "@/lib/utils";
+import { uploadImages } from "@/service/imagesApi";
+
+// const initialItems = ["🍅 Tomato", "🥒 Cucumber", "🧀 Cheese", "🥬 Lettuce"];
 
 const FileUploadForm = () => {
+  const [items, setItems] = useState<File[]>([]);
   const [images, setImages] = useState<File[]>([]);
-  const [uploading, setUploading] = useState(false);
+
   const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       //convert `FileList` to `File[]`
       const _files = Array.from(e.target.files);
       setImages(_files);
+      const files = _files.map((f) => f);
+      setItems(files);
     }
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("hello");
-
     if (!images.length) {
       return;
     }
 
-    setUploading(true);
-    await createImage(images);
-    setUploading(false);
+    await uploadImages(images);
   };
   return (
     <form className="" onSubmit={handleSubmit}>
@@ -51,7 +53,7 @@ const FileUploadForm = () => {
         </div>
         <button
           type="submit"
-          disabled={uploading}
+          disabled={!images.length}
           className={cn(
             !images.length
               ? "bg-gray-200 cursor-not-allowed"
@@ -67,7 +69,13 @@ const FileUploadForm = () => {
           const src = URL.createObjectURL(image);
           return (
             <div key={image.name} className="relative aspect-video col-span-4">
-              <Image src={src} alt={image.name} className="object-cover" fill />
+              <Image
+                width={200}
+                height={200}
+                src={src}
+                alt={image.name}
+                className="object-cove w-full"
+              />
             </div>
           );
         })}

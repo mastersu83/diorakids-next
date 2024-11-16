@@ -19,11 +19,10 @@
     "lucide-react": "^0.454.0",
     "motion": "^11.11.17",
     "next": "15.0.2",
-    "nextjs-breadcrumbs": "^1.1.9",
     "prisma": "^5.22.0",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028",
-    "react-dropzone": "^14.3.5",
+    "swr": "^2.2.5",
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
