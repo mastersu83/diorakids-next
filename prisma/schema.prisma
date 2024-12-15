@@ -35,7 +35,7 @@ model cloth {
 
   price       Int
   description String
-  article     Int
+  article     String
   wbLink      String
 
   collection   collection @relation(fields: [collectionId], references: [id])
@@ -43,17 +43,15 @@ model cloth {
 
   category   category @relation(fields: [categoryId], references: [id])
   categoryId String   @db.ObjectId
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model size {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
   size     Int
-  quantity Int
-  cloth    cloth  @relation(fields: [clothId], references: [id])
-  clothId  String @db.ObjectId
+  isValue  Boolean
+  quantity Int     @default(0)
+  cloth    cloth   @relation(fields: [clothId], references: [id])
+  clothId  String  @db.ObjectId
 }
 
 model image {

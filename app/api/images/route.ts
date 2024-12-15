@@ -8,8 +8,9 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(files);
 }
 
-export async function POST(req: Request) {
+export async function POST(req: Request, res: NextResponse) {
   const formData = await req.formData();
+  // const data = await req.formData();
 
   const fileName = [];
   const formDataEntryValues = Array.from(formData.values());
@@ -27,11 +28,9 @@ export async function POST(req: Request) {
     }
   }
 
-  const images = fileName.map((i) => {
-    return { imageUrl: i, clothId: "6733979e0280633ce67e9441" };
+  const imagesCloth = fileName.map((i, index) => {
+    return { imageUrl: i, id: String(index + 1) };
   });
 
-  await prisma.image.createMany({ data: images });
-
-  return NextResponse.json({ success: true });
+  return NextResponse.json(imagesCloth);
 }

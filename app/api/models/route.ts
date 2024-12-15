@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/prisma-client";
+import { AddModelFormFields } from "@/components/form/AddModelForm";
 
 export async function GET(req: NextRequest) {
   const models = await prisma.cloth.findMany({
@@ -16,44 +17,33 @@ export async function POST(req: NextRequest) {
   const {
     name,
     sizes,
-    images,
-    price,
-    description,
-    wbLink,
-    collectionId,
     article,
     categoryId,
-  } = await req.json();
+    wbLink,
+    collectionId,
+    price,
+    description,
+    images,
+  }: AddModelFormFields & { images: { imageUrl: string }[] } = await req.json();
 
-  // const newSizes = await prisma.size.createMany({
-  //   data: upload,
-  // });
+  const newImages = images.map((image) => ({ imageUrl: image.imageUrl }));
 
-  const findModel = await prisma.cloth.findFirst({
-    where: { name },
-  });
-
-  if (!findModel) {
-    const newModel = await prisma.cloth.create({
-      data: {
-        name,
-        sizes: {
-          create: sizes,
-        },
-        images: { create: images },
-        price,
-        description,
-        wbLink,
-        collectionId,
-        article,
-        categoryId,
+  const newModel = await prisma.cloth.create({
+    data: {
+      name: name,
+      sizes: {
+        create: sizes,
       },
-    });
-
-    return NextResponse.json({ newModel });
-  }
-
-  return NextResponse.json({
-    name: "Такая модель уже есть",
+      price: Number(price),
+      description: description,
+      wbLink: wbLink,
+      collectionId: collectionId,
+      article: article,
+      categoryId: categoryId,
+      images: { create: newImages },
+    },
+    include: { sizes: true, images: true, category: true, collection: true },
   });
+
+  return NextResponse.json(newModel);
 }

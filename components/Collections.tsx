@@ -2,12 +2,19 @@
 
 import { useState } from "react";
 import { MenuButton } from "@/components/MenuButton";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import { getCollections } from "@/service/collectionsApi";
+import { getCollectionModels } from "@/service/clothesApi";
 
 export const Collections = () => {
   const { data: collections } = useSWR("collections", getCollections);
+  const { mutate } = useSWRConfig();
   const [collectionId, setCollectionId] = useState<string>("0");
+
+  const handleCollectionModels = async (collectionId: string) => {
+    setCollectionId(collectionId);
+    await mutate("cloth", () => getCollectionModels({ collectionId }));
+  };
 
   if (!collections) {
     return <div>Loading...</div>;
@@ -25,7 +32,7 @@ export const Collections = () => {
         {collections.map((c) => (
           <MenuButton
             key={c.id}
-            setItemId={setCollectionId}
+            setItemId={handleCollectionModels}
             itemId={collectionId}
             item={c}
           />

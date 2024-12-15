@@ -1,35 +1,33 @@
-import styles from "./CategoryModels.module.scss";
 import Image from "next/image";
+import { ResCloth } from "@/types/types";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface ICategoryModels {
-  props: any;
+  models: ResCloth[] | undefined;
+  modelId: string;
 }
 
-export const CategoryModels = ({ props }: ICategoryModels) => {
+export const CategoryModels = ({ models, modelId }: ICategoryModels) => {
   return (
     <div className="flex flex-col gap-y-5">
-      <div className="text-4xl">
-        Комбинизон слип для новорожденного нательный
-      </div>
       <div className="flex gap-x-9">
-        <div>
-          <Image
-            width={130}
-            height={160}
-            src={`https://apidiorakids.ru/uploads/IMG_6594.JPG.jpg`}
-            alt={"cloth"}
-            className="rounded-2xl"
-          />
-        </div>
-        <div>
-          <Image
-            width={130}
-            height={160}
-            src={`https://apidiorakids.ru/uploads/IMG_6594.JPG.jpg`}
-            alt={"cloth"}
-            className="rounded-2xl"
-          />
-        </div>
+        {models?.map((model) => (
+          <Link key={model.id} href={`/model/${model.id}`}>
+            <div>
+              <Image
+                width={130}
+                height={160}
+                src={`/uploads/${model.images[0].imageUrl}`}
+                alt={"cloth"}
+                className={cn(
+                  modelId === model.id ? "border-2 border-customBlue" : "",
+                  "rounded-2xl"
+                )}
+              />
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );

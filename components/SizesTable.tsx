@@ -1,29 +1,35 @@
-import styles from "./SizesTable.module.scss";
+import { size } from "@prisma/client";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface ISizesTable {
-  props: any;
+  sizes: size[] | undefined;
 }
 
-export const SizesTable = ({ props }: ISizesTable) => {
+export const SizesTable = ({ sizes }: ISizesTable) => {
+  const [sizeId, setSizeId] = useState<string>("");
   return (
     <div className="flex flex-col gap-y-5">
       <div className="text-lg">Таблица размеров</div>
       <div className="flex gap-x-5">
-        <div className="w-20 h-20 flex items-center justify-center border-2 border-customBlue rounded-2xl">
-          <span>56</span>
-        </div>
-        <div className="w-20 h-20 flex items-center justify-center border-2 border-customBlue rounded-2xl">
-          <span>62</span>
-        </div>
-        <div className="w-20 h-20 flex items-center justify-center border-2 border-customBlue rounded-2xl">
-          <span>68</span>
-        </div>
-        <div className="w-20 h-20 flex items-center justify-center border-2 border-customBlue rounded-2xl">
-          <span>74</span>
-        </div>
-        <div className="w-20 h-20 flex items-center justify-center border-2 border-customBlue rounded-2xl">
-          <span>80</span>
-        </div>
+        {sizes &&
+          sizes.map(
+            (size) =>
+              size.isValue && (
+                <div
+                  key={size.id}
+                  onClick={() => setSizeId(size.id)}
+                  className={cn(
+                    sizeId === size.id
+                      ? "border-2 border-customBlue rounded-2xl"
+                      : "",
+                    "bg-blue-50 w-20 h-20 flex items-center justify-center rounded-2xl cursor-pointer"
+                  )}
+                >
+                  <span>{size.size}</span>
+                </div>
+              )
+          )}
       </div>
     </div>
   );

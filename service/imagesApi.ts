@@ -1,11 +1,12 @@
 import ky from "ky";
 import { IImage } from "@/types/types";
+import { image } from "@prisma/client";
 
 export const getImages = async (): Promise<IImage[]> => {
   return await ky("http://localhost:3000/api/images").json();
 };
 
-export const uploadImages = async (images: File[]) => {
+export const uploadImages = async (images: File[]): Promise<image[]> => {
   const formData = new FormData();
   images.forEach((image, i) => {
     formData.append(image.name, image);
@@ -22,5 +23,5 @@ export const uploadImages = async (images: File[]) => {
   //   };
   // });
 
-  await ky.post("/api/images", { body: formData });
+  return await ky.post("/api/images", { body: formData }).json();
 };

@@ -1,8 +1,6 @@
 import Link from "next/link";
 
-interface ICustomBreadcrumbs {
-  props: any;
-}
+interface ICustomBreadcrumbs {}
 
 const breadcrumbs = [
   { id: 1, title: "Главная", href: "/" },
@@ -11,23 +9,26 @@ const breadcrumbs = [
   { id: 3, title: "Комбинизон слип для новорожденного нательный" },
 ];
 
-export const CustomBreadcrumbs = ({ props }: ICustomBreadcrumbs) => {
+export const CustomBreadcrumbs = () => {
   return (
-    <div className="flex h-12">
-      {breadcrumbs.map((item, i) =>
-        item?.href ? (
-          <div key={item.id}>
-            <Link className="hover:underline" href={item.href}>
+    <div className="flex h-12 justify-between">
+      <div className="flex h-12">
+        {breadcrumbs.map((item, i) =>
+          item?.href ? (
+            <div key={item.id}>
+              <Link className="hover:underline" href={item.href}>
+                {item.title}
+              </Link>
+              <span className="mx-2">/</span>
+            </div>
+          ) : (
+            <span key={item.id} className="opacity-60">
               {item.title}
-            </Link>
-            <span className="mx-2">/</span>
-          </div>
-        ) : (
-          <span key={item.id} className="opacity-60">
-            {item.title}
-          </span>
-        )
-      )}
+            </span>
+          )
+        )}
+      </div>
+      <Link href="/admin">Edit</Link>
     </div>
   );
 };

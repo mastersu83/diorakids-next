@@ -1,26 +1,25 @@
-import { UserCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { cloth } from "@prisma/client";
+import { ResCloth } from "@/types/types";
 
 interface IProductItem {
-  props: any;
+  cloth: ResCloth;
 }
 
-export const ProductItem = ({ props }: IProductItem) => {
+export const ProductItem = ({ cloth }: IProductItem) => {
   return (
-    <Link href="/model/1" className="flex flex-col gap-y-5">
-      <div className="flex items-center justify-center border border-customBlue rounded-2xl">
+    <Link href={`/model/${cloth.id}`} className="flex flex-col gap-y-5">
+      <div className="h-[469px] flex items-center justify-center border border-customBlue rounded-2xl">
         <Image
-          width={285}
-          height={350}
-          src={`https://apidiorakids.ru/uploads/IMG_6594.JPG.jpg`}
+          width={350}
+          height={450}
+          src={`/uploads/${cloth.images[0].imageUrl}`}
           alt={"cloth"}
           className="rounded-2xl"
         />
       </div>
-      <div className="text-2xl">
-        Комбинизон слип для новорожденного нательный
-      </div>
+      <div className="text-xl">{cloth.name}</div>
       {/*<div className="text-2xl font-bold">350 $</div>*/}
       {/*<div className="flex justify-center bg-customBlue text-white py-2.5 px-6 rounded-2xl">*/}
       {/*  Добавить*/}
