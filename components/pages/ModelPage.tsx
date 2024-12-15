@@ -11,7 +11,6 @@ import { getModels } from "@/service/clothesApi";
 import { ResCloth } from "@/types/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import UserList from "@/components/UserList";
 import { useModelStore } from "@/store/models";
 
 interface IModelPage {

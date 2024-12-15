@@ -1,20 +1,23 @@
 "use client";
 
 import { ProductItem } from "@/components/ProductItem";
-import useSWR from "swr";
-import { getModels } from "@/service/clothesApi";
-import { ResCloth } from "@/types/types";
+import { useModelStore } from "@/store/models";
+import { useEffect } from "react";
 
 export const Content = () => {
-  const { data } = useSWR<ResCloth[]>("cloth", getModels);
+  const { models, setModels } = useModelStore((state) => state);
 
-  if (!data?.length) {
+  useEffect(() => {
+    setModels({ collectionId: "0", categoryId: "0" });
+  }, []);
+
+  if (!models?.length) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="grid grid-cols-3 gap-12 mb-10">
-      {data.map((card) => (
+      {models.map((card) => (
         <ProductItem key={card.id} cloth={card} />
       ))}
     </div>

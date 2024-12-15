@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useModelStore } from "@/store/models";
 
 interface ICustomBreadcrumbs {}
 
@@ -10,6 +11,7 @@ const breadcrumbs = [
 ];
 
 export const CustomBreadcrumbs = () => {
+  const { setEditMode } = useModelStore((state) => state);
   return (
     <div className="flex h-12 justify-between">
       <div className="flex h-12">
@@ -28,7 +30,9 @@ export const CustomBreadcrumbs = () => {
           )
         )}
       </div>
-      <Link href="/admin">Edit</Link>
+      <Link href="/admin" onClick={() => setEditMode(true)}>
+        Edit
+      </Link>
     </div>
   );
 };

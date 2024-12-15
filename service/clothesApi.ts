@@ -16,9 +16,26 @@ export const getCollectionModels = async ({
     searchParams: { collectionId },
   }).json();
 };
+export const getCollectionAndCategoryModels = async ({
+  collectionId,
+  categoryId,
+}: {
+  collectionId: string;
+  categoryId: string;
+}): Promise<ResCloth[]> => {
+  return await ky("/api/models/category", {
+    searchParams: { collectionId, categoryId },
+  }).json();
+};
 
 export const createModel = async (
   data: AddModelFormFields & { images: image[] }
 ): Promise<cloth> => {
   return await ky.post("/api/models", { json: data }).json();
+};
+
+export const editModel = async (
+  data: AddModelFormFields & { images: image[] } & { modelId: string }
+): Promise<cloth> => {
+  return await ky.put("/api/models", { json: data }).json();
 };

@@ -18,7 +18,7 @@ import { Box, Flex, Grid, Separator, Text } from "@radix-ui/themes";
 import ButtonBox from "@/components/ButtonBox";
 import { getCollections } from "@/service/collectionsApi";
 import UploadForm from "@/components/UploadForm";
-import { createModel } from "@/service/clothesApi";
+import { createModel, editModel } from "@/service/clothesApi";
 import { image } from "@prisma/client";
 import { useModelStore } from "@/store/models";
 
@@ -37,12 +37,10 @@ export type AddModelFormFields = {
 };
 
 export const AddModelForm = () => {
-  const model = useModelStore((state) => state.model);
+  const { model, editMode } = useModelStore((state) => state);
   const [images, setImages] = useState<image[]>(
     model?.images ? model.images : []
   );
-
-  console.log(model);
 
   const { data: categories } = useSWR("getCategoriesForm", getCategories);
   const { data: collections } = useSWR("getCollectionsForm", getCollections);
@@ -75,7 +73,10 @@ export const AddModelForm = () => {
   };
 
   const onSubmit: SubmitHandler<AddModelFormFields> = async (data) => {
-    await createModel({ ...data, images });
+    console.log({ ...data, images, modelId: model.id });
+    editMode
+      ? await editModel({ ...data, images, modelId: model.id })
+      : await createModel({ ...data, images });
   };
 
   return (
@@ -157,7 +158,10 @@ export const AddModelForm = () => {
             />
             <Input placeholder="Введите артикул" name="article" required />
             <Input placeholder="Ссылка на ВБ" name="wbLink" required />
-            <ButtonBox disable={form.formState.isSubmitting} />
+            <ButtonBox
+              editMode={editMode}
+              disable={form.formState.isSubmitting}
+            />
           </Box>
         </Grid>
       </form>
