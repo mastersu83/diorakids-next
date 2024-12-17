@@ -8,7 +8,7 @@ export const Content = () => {
   const { models, setModels } = useModelStore((state) => state);
 
   useEffect(() => {
-    setModels({ collectionId: "0", categoryId: "0" });
+    setModels({ collectionId: 0, categoryId: 0 });
   }, []);
 
   if (!models?.length) {

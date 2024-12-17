@@ -1,6 +1,6 @@
 import ky from "ky";
-import { ICollection } from "@/types/types";
+import { Collection } from "@prisma/client";
 
-export const getCollections = async (): Promise<ICollection[]> => {
+export const getCollections = async (): Promise<Collection[]> => {
   return await ky("http://localhost:3000/api/collections").json();
 };

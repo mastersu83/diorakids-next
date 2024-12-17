@@ -1,9 +1,9 @@
-import { ICollection } from "@/types/types";
+import { Collection } from "@prisma/client";
 
 interface IButton {
-  setItemId: (id: string) => void;
-  itemId: string;
-  item: ICollection;
+  setItemId: (id: number) => void;
+  itemId: number;
+  item: Collection;
 }
 
 export const Button = ({ itemId, setItemId, item }: IButton) => {

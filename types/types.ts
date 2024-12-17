@@ -1,4 +1,4 @@
-import { category, cloth, collection, image, size } from "@prisma/client";
+import { Category, Cloth, Collection, Image, Size } from "@prisma/client";
 
 export interface ICategory {
   id: string;
@@ -10,17 +10,11 @@ export interface ICollection {
   name: string;
 }
 
-export type ISize = {
-  _id: string;
-  name: string;
-  quantity: number;
-};
-
 export interface IImage {
-  id: string;
+  id: number;
   imageUrl: string;
 }
 
-export type ResCloth = cloth & { sizes: size[] } & { images: image[] } & {
-  collection: collection;
-} & { category: category };
+export type ResCloth = Cloth & { sizes: Size[] } & { images: Image[] } & {
+  collection: Collection;
+} & { category: Category };
