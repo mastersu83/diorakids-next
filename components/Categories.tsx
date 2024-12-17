@@ -13,7 +13,7 @@ export const Categories = () => {
     (state) => state
   );
 
-  const handleCollectionModels = async (categoryId: number) => {
+  const handleCollectionModels = async (categoryId: string) => {
     setModels({
       categoryId,
       collectionId,
@@ -30,12 +30,7 @@ export const Categories = () => {
         <MenuButton
           setItemId={handleCollectionModels}
           itemId={categoryId}
-          item={{
-            id: 0,
-            name: "Все",
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          }}
+          item={{ id: "0", name: "Все" }}
         />
         {categories.map((c) => (
           <MenuButton

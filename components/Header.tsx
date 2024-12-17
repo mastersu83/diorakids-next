@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const Header = () => {
   return (
-    <header className="h-36 flex items-center justify-between w-full border-b border-b-customBlue mb-7">
+    <header className="sticky -top-[10px] py-4 flex items-center justify-between w-full bg-white/50 backdrop-blur-lg rounded-b-2xl z-20">
       <Link href="/" className="text-5xl">
         <span className="text-customRed [text-shadow:_0_4px_4px_rgb(0_0_0_/_25%)]">
           DIORA

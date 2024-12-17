@@ -48,7 +48,7 @@ export const ModelPage = ({ modelId }: IModelPage) => {
             <Image
               width={510}
               height={700}
-              src={`/uploads/${model?.images[mainImageIndex].imageUrl}`}
+              src={`/images/${model?.images[mainImageIndex].imageUrl}`}
               alt={"cloth"}
               className="rounded-2xl"
             />

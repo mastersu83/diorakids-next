@@ -1,6 +1,6 @@
 import ky from "ky";
-import { Category } from "@prisma/client";
+import { ICategory } from "@/types/types";
 
-export const getCategories = async (): Promise<Category[]> => {
+export const getCategories = async (): Promise<ICategory[]> => {
   return await ky("http://localhost:3000/api/categories").json();
 };

@@ -25,7 +25,7 @@ export const Input = ({
       className={cn(
         type === "checkbox"
           ? ""
-          : "w-full mb-1 text-sm outline-none p-2 border border-accent-8 rounded"
+          : "w-full mb-1 text-sm outline-none p-2 border border-customBlue rounded"
       )}
       {...register(name, {
         required: required ? "Это поле не может быть пустым" : false,
