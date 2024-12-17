@@ -3,10 +3,12 @@ import { prisma } from "@/prisma/prisma-client";
 
 export async function GET(req: NextRequest) {
   const collectionId = req.nextUrl.searchParams.get("collectionId") || "";
+  const categoryId = req.nextUrl.searchParams.get("categoryId") || "";
   const collectionModels = await prisma.cloth.findMany({
     where: {
       collectionId:
         Number(collectionId) === 0 ? undefined : Number(collectionId),
+      categoryId: Number(categoryId) === 0 ? undefined : Number(categoryId),
     },
     include: {
       sizes: true,

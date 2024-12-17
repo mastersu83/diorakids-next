@@ -20,7 +20,7 @@ export const ImagesGallery = () => {
             width={300}
             height={300}
             key={image.id}
-            src={"/uploads/" + image.imageUrl}
+            src={"/images/" + image.imageUrl}
             alt={image.imageUrl}
             className="object-cover w-full"
           />

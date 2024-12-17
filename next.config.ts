@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+// import withImage from "next/image";
+
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
@@ -13,9 +15,12 @@ const nextConfig: NextConfig = {
         protocol: "http",
         hostname: "localhost",
         port: "3000",
+        pathname: "/images/**",
       },
     ],
+    unoptimized: true,
   },
+  distDir: "dist",
 };
 
 module.exports = nextConfig;

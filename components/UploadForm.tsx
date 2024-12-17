@@ -1,20 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import { uploadImages } from "@/service/imagesApi";
-import { image } from "@prisma/client";
 import UserList from "@/components/UserList";
+import { IImage } from "@/types/types";
+import { uploadImages } from "@/service/imagesApi";
 
 interface FileUploadFormProps {
-  images: image[];
-  setImages: (value: React.SetStateAction<image[]>) => void;
+  images: IImage[];
+  setImages: (value: React.SetStateAction<IImage[]>) => void;
 }
 
 const FileUploadForm = ({ images, setImages }: FileUploadFormProps) => {
+  const [items, setItems] = useState<File[]>([]);
+  const [images1, setImages1] = useState<File[]>([]);
   const handleFileSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const _files = Array.from(e.target.files);
       const imagesCloth = await uploadImages(_files);
+      console.log(imagesCloth);
       setImages(imagesCloth);
+      setItems(_files);
     }
   };
 
@@ -41,7 +45,7 @@ const FileUploadForm = ({ images, setImages }: FileUploadFormProps) => {
         </div>
       </div>
 
-      <UserList images={images} setImages={setImages} />
+      <UserList items={items} images={images} setImages={setImages} />
     </div>
   );
 };

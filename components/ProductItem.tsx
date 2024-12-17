@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cloth } from "@prisma/client";
 import { ResCloth } from "@/types/types";
 
 interface IProductItem {
@@ -14,9 +13,10 @@ export const ProductItem = ({ cloth }: IProductItem) => {
         <Image
           width={350}
           height={450}
-          src={`/uploads/${cloth.images[0].imageUrl}`}
+          src={`/images/${cloth.images[0].imageUrl}`}
           alt={"cloth"}
           className="rounded-2xl"
+          unoptimized
         />
       </div>
       <div className="text-xl">{cloth.name}</div>

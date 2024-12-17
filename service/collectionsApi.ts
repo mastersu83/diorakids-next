@@ -1,6 +1,7 @@
-import ky from "ky";
-import { ICollection } from "@/types/types";
+import { axiosInstance } from "@/service/instance";
+import { Collection } from "@prisma/client";
 
-export const getCollections = async (): Promise<ICollection[]> => {
-  return await ky("http://localhost:3000/api/collections").json();
+export const getCollections = async (): Promise<Collection[]> => {
+  const { data } = await axiosInstance<Collection[]>("collections");
+  return data;
 };

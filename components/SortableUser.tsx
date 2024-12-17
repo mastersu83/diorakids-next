@@ -2,16 +2,19 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { image } from "@prisma/client";
+import { IImage } from "@/types/types";
 
-export function SortableUser({ image }: { image: image }) {
+export function SortableUser({ image }: { image: File }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: image.id });
+    useSortable({ id: image.name });
 
   const style = {
     transition,
     transform: CSS.Transform.toString(transform),
   };
+  const src = URL.createObjectURL(image);
+
+  console.log(image.name);
 
   return (
     <div
@@ -24,8 +27,8 @@ export function SortableUser({ image }: { image: image }) {
       <Image
         width={200}
         height={300}
-        src={`/uploads/${image.imageUrl}`}
-        alt={image.imageUrl}
+        src={src}
+        alt={src}
         className={cn("rounded-2xl first:w-full")}
       />
     </div>

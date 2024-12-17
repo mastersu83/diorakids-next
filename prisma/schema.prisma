@@ -7,61 +7,56 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model collection {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
+model Collection {
+  id   Int    @id @default(autoincrement())
   name String @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  model     cloth[]
+  model     Cloth[]
 }
 
-model category {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
+model Category {
+  id   Int    @id @default(autoincrement())
   name String @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  model     cloth[]
+  models    Cloth[]
 }
 
-model cloth {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
+model Cloth {
+  id   Int    @id @default(autoincrement())
   name String
 
-  sizes size[]
+  sizes Size[]
 
-  images image[]
+  images Image[]
 
   price       Int
   description String
   article     String
   wbLink      String
 
-  collection   collection @relation(fields: [collectionId], references: [id])
-  collectionId String     @db.ObjectId
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  collectionId Int
 
-  category   category @relation(fields: [categoryId], references: [id])
-  categoryId String   @db.ObjectId
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
 }
 
-model size {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+model Size {
+  id       Int     @id @default(autoincrement())
   size     Int
   isValue  Boolean
   quantity Int     @default(0)
-  cloth    cloth   @relation(fields: [clothId], references: [id])
-  clothId  String  @db.ObjectId
+  cloth    Cloth   @relation(fields: [clothId], references: [id])
+  clothId  Int
 }
 
-model image {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
+model Image {
+  id       Int    @id @default(autoincrement())
   imageUrl String
-  cloth    cloth  @relation(fields: [clothId], references: [id])
-  clothId  String @db.ObjectId
+  cloth    Cloth  @relation(fields: [clothId], references: [id])
+  clothId  Int
 }
-
-// type upload {
-//   size     Int
-//   quantity Int
-// }

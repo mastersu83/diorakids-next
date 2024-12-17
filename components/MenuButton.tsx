@@ -1,8 +1,8 @@
 import { ICollection } from "@/types/types";
 
 interface IButton {
-  setItemId: (id: string) => void;
-  itemId: string;
+  setItemId: (id: number) => void;
+  itemId: number;
   item: ICollection;
 }
 

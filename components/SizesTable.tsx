@@ -1,13 +1,13 @@
-import { size } from "@prisma/client";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Size } from "@prisma/client";
 
 interface ISizesTable {
-  sizes: size[] | undefined;
+  sizes: Size[] | undefined;
 }
 
 export const SizesTable = ({ sizes }: ISizesTable) => {
-  const [sizeId, setSizeId] = useState<string>("");
+  const [sizeId, setSizeId] = useState<number>(0);
   return (
     <div className="flex flex-col gap-y-5">
       <div className="text-lg">Таблица размеров</div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@radix-ui/themes/styles.css";
 import "./globals.css";
 import { MiLayout } from "@/components/MiLayout";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Diora Kids",
@@ -16,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <MiLayout>{children}</MiLayout>
+        <div className="h-screen">
+          <MiLayout>{children}</MiLayout>
+        </div>
       </body>
     </html>
   );
