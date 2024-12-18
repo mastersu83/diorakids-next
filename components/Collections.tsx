@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { MenuButton } from "@/components/MenuButton";
 import useSWR from "swr";
 import { getCollections } from "@/service/collectionsApi";
