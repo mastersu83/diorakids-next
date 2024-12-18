@@ -11,10 +11,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useModelStore } from "@/store/models";
 import { Slider } from "@/components/Slider";
-import { Grid, Spinner } from "@radix-ui/themes";
-import { motion } from "motion/react";
-import { logoLetters } from "@/consts/data";
-import { cn } from "@/lib/utils";
+import { Grid } from "@radix-ui/themes";
 import { FidgetSpinner } from "react-loader-spinner";
 
 interface IModelPage {
