@@ -27,24 +27,10 @@ export const CustomBreadcrumbs = () => {
           <span className="mx-2">/</span>
         </div>
         <span className="opacity-60">{model.name}</span>
-        {/*{breadcrumbs.map((item, i) =>*/}
-        {/*  item?.href ? (*/}
-        {/*    <div key={item.id}>*/}
-        {/*      <Link className="hover:underline" href={item.href}>*/}
-        {/*        {item.title}*/}
-        {/*      </Link>*/}
-        {/*      <span className="mx-2">/</span>*/}
-        {/*    </div>*/}
-        {/*  ) : (*/}
-        {/*    <span key={item.id} className="opacity-60">*/}
-        {/*      {item.title}*/}
-        {/*    </span>*/}
-        {/*  )*/}
-        {/*)}*/}
       </div>
-      <Link href="/admin" onClick={() => setEditMode(true)}>
-        Edit
-      </Link>
+      {/*<Link href="/admin" onClick={() => setEditMode(true)}>*/}
+      {/*  Edit*/}
+      {/*</Link>*/}
     </div>
   );
 };
