@@ -19,8 +19,8 @@ import ButtonBox from "@/components/ButtonBox";
 import { getCollections } from "@/service/collectionsApi";
 import UploadForm from "@/components/UploadForm";
 import { createModel, editModel } from "@/service/clothesApi";
-import { image } from "@prisma/client";
 import { useModelStore } from "@/store/models";
+import { Image } from "@prisma/client";
 
 export type AddModelFormFields = {
   name: string;
@@ -38,7 +38,7 @@ export type AddModelFormFields = {
 
 export const AddModelForm = () => {
   const { model, editMode } = useModelStore((state) => state);
-  const [images, setImages] = useState<image[]>(
+  const [images, setImages] = useState<Image[]>(
     model?.images ? model.images : []
   );
 
@@ -48,7 +48,7 @@ export const AddModelForm = () => {
     defaultValues: async () => {
       return {
         name: model.name,
-        categoryId: model.categoryId,
+        categoryId: String(model.categoryId),
         sizes: model?.sizes
           ? model.sizes
           : sizes.map((s) => ({ ...s, isValue: false })),
@@ -56,19 +56,17 @@ export const AddModelForm = () => {
         description: model.description,
         price: model.price,
         wbLink: model.wbLink,
-        collectionId: model.collectionId,
+        collectionId: String(model.collectionId),
       };
     },
   });
-
-  console.log(form.formState.errors);
 
   const { fields: fieldsSizeButtons, replace } = useFieldArray({
     name: "sizes",
     control: form.control,
   });
 
-  const handleUploadImage = async (images: React.SetStateAction<image[]>) => {
+  const handleUploadImage = async (images: React.SetStateAction<Image[]>) => {
     setImages(images);
   };
 

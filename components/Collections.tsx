@@ -14,8 +14,8 @@ export const Collections = () => {
 
   // const [collectionId, setCollectionId] = useState<string>("0");
 
-  const handleCollectionModels = (collectionId: string) => {
-    // setCollectionId(id);
+  const handleCollectionModels = (collectionId: number) => {
+    console.log(collectionId);
     setModels({
       categoryId,
       collectionId,
@@ -33,7 +33,12 @@ export const Collections = () => {
         <MenuButton
           setItemId={handleCollectionModels}
           itemId={collectionId}
-          item={{ id: "0", name: "Все" }}
+          item={{
+            id: 0,
+            name: "Все",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          }}
         />
         {collections.map((c) => (
           <MenuButton

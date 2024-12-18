@@ -7,9 +7,11 @@ export async function GET(req: NextRequest) {
     include: {
       sizes: true,
       images: true,
+      collection: true,
+      category: true,
     },
+    orderBy: { id: "asc" },
   });
-
   return NextResponse.json(models);
 }
 
@@ -37,9 +39,9 @@ export async function POST(req: NextRequest) {
       price: Number(price),
       description: description,
       wbLink: wbLink,
-      collectionId: collectionId,
+      collectionId: Number(collectionId),
       article: article,
-      categoryId: categoryId,
+      categoryId: Number(categoryId),
       images: { create: newImages },
     },
     include: { sizes: true, images: true, category: true, collection: true },
@@ -69,8 +71,11 @@ export async function PUT(req: NextRequest) {
     isValue: size.isValue,
   }));
 
+  await prisma.image.deleteMany({ where: { clothId: Number(modelId) } });
+  await prisma.size.deleteMany({ where: { clothId: Number(modelId) } });
+
   const editModel = await prisma.cloth.update({
-    where: { id: modelId },
+    where: { id: Number(modelId) },
     data: {
       name: name,
       sizes: {
@@ -79,9 +84,9 @@ export async function PUT(req: NextRequest) {
       price: Number(price),
       description: description,
       wbLink: wbLink,
-      collectionId: collectionId,
+      collectionId: Number(collectionId),
       article: article,
-      categoryId: categoryId,
+      categoryId: Number(categoryId),
       images: { create: newImages },
     },
     include: { sizes: true, images: true, category: true, collection: true },

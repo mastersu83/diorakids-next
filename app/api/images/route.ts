@@ -8,9 +8,8 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(files);
 }
 
-export async function POST(req: Request, res: NextResponse) {
+export async function POST(req: Request) {
   const formData = await req.formData();
-  // const data = await req.formData();
 
   const fileName = [];
   const formDataEntryValues = Array.from(formData.values());

@@ -1,12 +1,12 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { uploadImages } from "@/service/imagesApi";
-import { image } from "@prisma/client";
+import { Image } from "@prisma/client";
 import UserList from "@/components/UserList";
 
 interface FileUploadFormProps {
-  images: image[];
-  setImages: (value: React.SetStateAction<image[]>) => void;
+  images: Image[];
+  setImages: (value: React.SetStateAction<Image[]>) => void;
 }
 
 const FileUploadForm = ({ images, setImages }: FileUploadFormProps) => {

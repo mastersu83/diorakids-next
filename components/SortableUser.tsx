@@ -2,9 +2,9 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { image } from "@prisma/client";
+import { Image as IImage } from "@prisma/client";
 
-export function SortableUser({ image }: { image: image }) {
+export function SortableUser({ image }: { image: IImage }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: image.id });
 

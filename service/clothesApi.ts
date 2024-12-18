@@ -1,7 +1,7 @@
 import ky from "ky";
 import { AddModelFormFields } from "@/components/form/AddModelForm";
-import { cloth, image } from "@prisma/client";
-import { ResCloth } from "@/types/types";
+import { IImage, ResCloth } from "@/types/types";
+import { Cloth } from "@prisma/client";
 
 export const getModels = async (): Promise<ResCloth[]> => {
   return await ky("/api/models").json();
@@ -10,7 +10,7 @@ export const getModels = async (): Promise<ResCloth[]> => {
 export const getCollectionModels = async ({
   collectionId,
 }: {
-  collectionId: string;
+  collectionId: number;
 }): Promise<ResCloth[]> => {
   return await ky("/api/models/collection", {
     searchParams: { collectionId },
@@ -20,22 +20,31 @@ export const getCollectionAndCategoryModels = async ({
   collectionId,
   categoryId,
 }: {
-  collectionId: string;
-  categoryId: string;
+  collectionId: number;
+  categoryId: number;
+}): Promise<ResCloth[]> => {
+  return await ky("/api/models/category-collection", {
+    searchParams: { collectionId, categoryId },
+  }).json();
+};
+export const getCategoryModels = async ({
+  categoryId,
+}: {
+  categoryId: number;
 }): Promise<ResCloth[]> => {
   return await ky("/api/models/category", {
-    searchParams: { collectionId, categoryId },
+    searchParams: { categoryId },
   }).json();
 };
 
 export const createModel = async (
-  data: AddModelFormFields & { images: image[] }
-): Promise<cloth> => {
+  data: AddModelFormFields & { images: IImage[] }
+): Promise<Cloth> => {
   return await ky.post("/api/models", { json: data }).json();
 };
 
 export const editModel = async (
-  data: AddModelFormFields & { images: image[] } & { modelId: string }
-): Promise<cloth> => {
+  data: AddModelFormFields & { images: IImage[] } & { modelId: number }
+): Promise<Cloth> => {
   return await ky.put("/api/models", { json: data }).json();
 };

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cloth } from "@prisma/client";
 import { ResCloth } from "@/types/types";
 
 interface IProductItem {
@@ -10,7 +9,7 @@ interface IProductItem {
 export const ProductItem = ({ cloth }: IProductItem) => {
   return (
     <Link href={`/model/${cloth.id}`} className="flex flex-col gap-y-5">
-      <div className="h-[469px] flex items-center justify-center border border-customBlue rounded-2xl">
+      <div className="flex items-center justify-center border border-customBlue rounded-2xl">
         <Image
           width={350}
           height={450}
