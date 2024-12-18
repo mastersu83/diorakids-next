@@ -30,38 +30,40 @@ export const Collections = () => {
     <div className="">
       <div className="text-3xl mb-5">Коллекции</div>
       <div className="flex flex-col items-center justify-center gap-y-5">
-        {[1, 2, 3].map((i) => (
-          <Skeleton
-            key={i}
-            loading={isLoading}
-            className="py-2.5 px-6 h-12 w-full rounded-2xl"
-          />
-        ))}
-        <>
-          {!isLoading && (
-            <MenuButton
-              setItemId={handleCollectionModels}
-              itemId={collectionId}
-              item={{
-                id: 0,
-                name: "Все",
-                createdAt: new Date(),
-                updatedAt: new Date(),
-              }}
-            />
-          )}
-          {collections &&
-            collections.map((c) => (
+        {isLoading ? (
+          [1, 2, 3].map((i) => (
+            <div key={i} className="rounded-2xl overflow-hidden h-12 w-full">
+              <Skeleton
+                loading={isLoading}
+                className="py-2.5 px-6 h-full w-full"
+              />
+            </div>
+          ))
+        ) : (
+          <>
+            {!isLoading && (
               <MenuButton
-                key={c.id}
                 setItemId={handleCollectionModels}
                 itemId={collectionId}
-                item={c}
+                item={{
+                  id: 0,
+                  name: "Все",
+                  createdAt: new Date(),
+                  updatedAt: new Date(),
+                }}
               />
-            ))}
-        </>
-
-        {/*<Skeleton className="py-2.5 px-6 h-12 w-full rounded-2xl" />*/}
+            )}
+            {collections &&
+              collections.map((c) => (
+                <MenuButton
+                  key={c.id}
+                  setItemId={handleCollectionModels}
+                  itemId={collectionId}
+                  item={c}
+                />
+              ))}
+          </>
+        )}
       </div>
     </div>
   );

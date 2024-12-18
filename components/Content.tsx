@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { Skeleton } from "@radix-ui/themes";
 
 export const Content = () => {
-  const { models, setModels, loadingModels } = useModelStore((state) => state);
+  const { models, setModels } = useModelStore((state) => state);
 
   useEffect(() => {
     setModels({ collectionId: 0, categoryId: 0 });

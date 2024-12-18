@@ -22,11 +22,8 @@ export const Categories = () => {
 
   return (
     <div className="sticky top-0 z-20 w-1/2 bg-white rounded-2xl h-14 p-1.5 flex items-center justify-between gap-x-4 mb-10">
-      <div className="flex items-center justify-between gap-x-2 w-full">
-        <Skeleton
-          loading={isLoading}
-          className="py-2.5 px-6 h-12 w-full rounded-2xl"
-        >
+      <div className="flex items-center justify-between gap-x-2 w-full rounded-2xl overflow-hidden">
+        <Skeleton loading={isLoading} className="py-2.5 px-6 h-12 w-full">
           <MenuButton
             setItemId={handleCollectionModels}
             itemId={categoryId}
