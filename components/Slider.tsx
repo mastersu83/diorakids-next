@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { motion } from "motion/react";
 import { Box } from "@radix-ui/themes";
 import { CircleChevronDown, CircleChevronUp } from "lucide-react";
 import { IImage } from "@/types/types";
@@ -44,13 +45,11 @@ export const Slider = ({
       <div className="h-[620px] flex flex-col gap-y-4 overflow-hidden">
         {images &&
           images.map((image, index) => (
-            <Box
+            <motion.div
+              animate={{ y: -slideMove, transition: { duration: 0.5 } }}
               translate="yes"
               key={image.id}
               onClick={() => setMainImageIndex(index)}
-              className={`-translate-y-[${String(
-                slideMove
-              )}px] transition-all duration-500`}
             >
               <Image
                 width={130}
@@ -64,7 +63,7 @@ export const Slider = ({
                   "rounded-2xl border-2 cursor-pointer"
                 )}
               />
-            </Box>
+            </motion.div>
           ))}
       </div>
       <Box

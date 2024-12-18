@@ -19,6 +19,7 @@ interface State {
   collection: string;
   categories: Category[];
   activeCategoryId: number;
+  loadingModels: boolean;
   setEditMode: (editMode: boolean) => void;
   setModel: (model: ResCloth) => void;
   setModels: ({
@@ -41,6 +42,7 @@ export const useModelStore = create<State>()(
       collectionId: 0,
       categories: [],
       activeCategoryId: 0,
+      loadingModels: true,
       setModels: async ({
         categoryId,
         collectionId,
@@ -49,6 +51,7 @@ export const useModelStore = create<State>()(
         collectionId: number;
       }) => {
         if (collectionId === 0 && categoryId === 0) {
+          set({ loadingModels: true });
           const models = await getModels();
           set({
             models,
@@ -56,6 +59,7 @@ export const useModelStore = create<State>()(
             categoryId,
             activeCategoryId: categoryId,
           });
+          set({ loadingModels: false });
         }
         if (collectionId !== 0 && categoryId === 0) {
           const models = await getCollectionModels({ collectionId });

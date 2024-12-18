@@ -10,15 +10,19 @@ import { ResCloth } from "@/types/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useModelStore } from "@/store/models";
-import { Grid } from "@radix-ui/themes";
 import { Slider } from "@/components/Slider";
+import { Grid, Spinner } from "@radix-ui/themes";
+import { motion } from "motion/react";
+import { logoLetters } from "@/consts/data";
+import { cn } from "@/lib/utils";
+import { FidgetSpinner } from "react-loader-spinner";
 
 interface IModelPage {
   modelId: number;
 }
 
 export const ModelPage = ({ modelId }: IModelPage) => {
-  const { data } = useSWR<ResCloth[]>("clothPage", getModels);
+  const { data, isLoading } = useSWR<ResCloth[]>("clothPage", getModels);
   const setModel = useModelStore((state) => state.setModel);
 
   const [mainImageIndex, setMainImageIndex] = useState<number>(0);
@@ -30,8 +34,21 @@ export const ModelPage = ({ modelId }: IModelPage) => {
     }
   }, [model]);
 
-  if (!data?.length && !model) {
-    return <div>Loading...</div>;
+  if (isLoading && !model) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <FidgetSpinner
+          visible={true}
+          backgroundColor="#00a0e4"
+          ballColors={["#ff0000", "#ff0000", "#ff0000"]}
+          height="200"
+          width="200"
+          ariaLabel="fidget-spinner-loading"
+          wrapperStyle={{}}
+          wrapperClass="fidget-spinner-wrapper"
+        />
+      </div>
+    );
   }
 
   return (
