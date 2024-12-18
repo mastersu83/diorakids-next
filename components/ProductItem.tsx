@@ -13,7 +13,7 @@ export const ProductItem = ({ cloth }: IProductItem) => {
         <Image
           width={350}
           height={450}
-          src={`/images/${cloth.images[0].imageUrl}`}
+          src={`/uploads/${cloth.images[0].imageUrl}`}
           alt={"cloth"}
           className="rounded-2xl"
           unoptimized
