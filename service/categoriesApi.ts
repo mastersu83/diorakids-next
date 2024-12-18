@@ -1,7 +1,6 @@
-import { ResCategory } from "@/types/types";
-import { axiosInstance } from "@/service/instance";
+import ky from "ky";
+import { ICategory } from "@/types/types";
 
-export const getCategories = async (): Promise<ResCategory[]> => {
-  const { data } = await axiosInstance<ResCategory[]>("categories");
-  return data;
+export const getCategories = async (): Promise<ICategory[]> => {
+  return await ky("http://localhost:3000/api/categories").json();
 };

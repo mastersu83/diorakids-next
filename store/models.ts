@@ -1,5 +1,5 @@
 import { devtools } from "zustand/middleware";
-import { ResCategory, ResCloth } from "@/types/types";
+import { ResCloth } from "@/types/types";
 import { create } from "zustand";
 import {
   getCategoryModels,
@@ -7,7 +7,7 @@ import {
   getCollectionModels,
   getModels,
 } from "@/service/clothesApi";
-import { Cloth } from "@prisma/client";
+import { Category, Cloth } from "@prisma/client";
 
 interface State {
   models: ResCloth[];
@@ -17,7 +17,7 @@ interface State {
   collectionId: number;
   category: string;
   collection: string;
-  categories: ResCategory[];
+  categories: Category[];
   activeCategoryId: number;
   setEditMode: (editMode: boolean) => void;
   setModel: (model: ResCloth) => void;
@@ -28,7 +28,7 @@ interface State {
     categoryId: number;
     collectionId: number;
   }) => void;
-  setCategories: (categories: ResCategory[]) => void;
+  setCategories: (categories: Category[]) => void;
 }
 
 export const useModelStore = create<State>()(
@@ -98,7 +98,7 @@ export const useModelStore = create<State>()(
       setEditMode: async (editMode: boolean) => {
         set({ editMode });
       },
-      setCategories: async (categories: ResCategory[]) => {
+      setCategories: async (categories: Category[]) => {
         set({ categories });
       },
     }),

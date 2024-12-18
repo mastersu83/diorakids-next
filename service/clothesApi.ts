@@ -1,11 +1,10 @@
+import ky from "ky";
 import { AddModelFormFields } from "@/components/form/AddModelForm";
 import { IImage, ResCloth } from "@/types/types";
 import { Cloth } from "@prisma/client";
-import { axiosInstance } from "@/service/instance";
 
 export const getModels = async (): Promise<ResCloth[]> => {
-  const { data } = await axiosInstance<ResCloth[]>("models");
-  return data;
+  return await ky("/api/models").json();
 };
 
 export const getCollectionModels = async ({
@@ -13,12 +12,10 @@ export const getCollectionModels = async ({
 }: {
   collectionId: number;
 }): Promise<ResCloth[]> => {
-  const { data } = await axiosInstance<ResCloth[]>("models/collection", {
-    params: { collectionId },
-  });
-  return data;
+  return await ky("/api/models/collection", {
+    searchParams: { collectionId },
+  }).json();
 };
-
 export const getCollectionAndCategoryModels = async ({
   collectionId,
   categoryId,
@@ -26,36 +23,28 @@ export const getCollectionAndCategoryModels = async ({
   collectionId: number;
   categoryId: number;
 }): Promise<ResCloth[]> => {
-  const { data } = await axiosInstance<ResCloth[]>(
-    "models/category-collection",
-    {
-      params: { collectionId, categoryId },
-    }
-  );
-  return data;
+  return await ky("/api/models/category-collection", {
+    searchParams: { collectionId, categoryId },
+  }).json();
 };
-
 export const getCategoryModels = async ({
   categoryId,
 }: {
   categoryId: number;
 }): Promise<ResCloth[]> => {
-  const { data } = await axiosInstance<ResCloth[]>("models/category", {
-    params: { categoryId },
-  });
-  return data;
+  return await ky("/api/models/category", {
+    searchParams: { categoryId },
+  }).json();
 };
 
 export const createModel = async (
   data: AddModelFormFields & { images: IImage[] }
 ): Promise<Cloth> => {
-  const { data: models } = await axiosInstance.post<Cloth>("models", data);
-  return models;
+  return await ky.post("/api/models", { json: data }).json();
 };
 
 export const editModel = async (
-  data: AddModelFormFields & { images: IImage[] } & { modelId: string }
+  data: AddModelFormFields & { images: IImage[] } & { modelId: number }
 ): Promise<Cloth> => {
-  const { data: model } = await axiosInstance.put<Cloth>("models", data);
-  return model;
+  return await ky.put("/api/models", { json: data }).json();
 };

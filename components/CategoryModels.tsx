@@ -25,7 +25,7 @@ export const CategoryModels = ({
                   <Image
                     width={130}
                     height={160}
-                    src={`/images/${model.images[0].imageUrl}`}
+                    src={`/uploads/${model.images[0].imageUrl}`}
                     alt={"cloth"}
                     className={cn(
                       modelId === model.id ? "border-2 border-customBlue" : "",

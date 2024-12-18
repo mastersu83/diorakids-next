@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { MenuButton } from "@/components/MenuButton";
 import useSWR from "swr";
 import { getCollections } from "@/service/collectionsApi";
@@ -11,7 +12,10 @@ export const Collections = () => {
     (state) => state
   );
 
+  // const [collectionId, setCollectionId] = useState<string>("0");
+
   const handleCollectionModels = (collectionId: number) => {
+    console.log(collectionId);
     setModels({
       categoryId,
       collectionId,
@@ -23,21 +27,28 @@ export const Collections = () => {
   }
 
   return (
-    <div className="sticky top-10 flex flex-col gap-y-4 h-auto">
-      <div className="text-3xl">Коллекции</div>
-      <MenuButton
-        setItemId={handleCollectionModels}
-        itemId={collectionId}
-        item={{ id: 0, name: "Все" }}
-      />
-      {collections.map((c) => (
+    <div className="">
+      <div className="text-3xl mb-5">Коллекции</div>
+      <div className="flex flex-col items-center justify-center gap-y-5">
         <MenuButton
-          key={c.id}
           setItemId={handleCollectionModels}
           itemId={collectionId}
-          item={c}
+          item={{
+            id: 0,
+            name: "Все",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          }}
         />
-      ))}
+        {collections.map((c) => (
+          <MenuButton
+            key={c.id}
+            setItemId={handleCollectionModels}
+            itemId={collectionId}
+            item={c}
+          />
+        ))}
+      </div>
     </div>
   );
 };

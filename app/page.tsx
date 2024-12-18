@@ -1,11 +1,11 @@
 import { Categories } from "@/components/Categories";
-import { MyContainer } from "@/components/MyContainer";
+import { Container } from "@/components/Container";
 
 export default async function Home() {
   return (
     <div className="flex items-center justify-center flex-col">
       <Categories />
-      <MyContainer />
+      <Container />
     </div>
   );
 }

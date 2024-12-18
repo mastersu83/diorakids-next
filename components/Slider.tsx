@@ -55,7 +55,7 @@ export const Slider = ({
               <Image
                 width={130}
                 height={160}
-                src={`/images/${image.imageUrl}`}
+                src={`/uploads/${image.imageUrl}`}
                 alt={"cloth"}
                 className={cn(
                   index === mainImageIndex

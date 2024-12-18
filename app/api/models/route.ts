@@ -12,7 +12,6 @@ export async function GET(req: NextRequest) {
     },
     orderBy: { id: "asc" },
   });
-
   return NextResponse.json(models);
 }
 

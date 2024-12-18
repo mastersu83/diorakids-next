@@ -6,15 +6,9 @@ export interface ICategory {
 }
 
 export interface ICollection {
-  id: number;
+  id: string;
   name: string;
 }
-
-export type ISize = {
-  _id: string;
-  name: string;
-  quantity: number;
-};
 
 export interface IImage {
   id: number;
@@ -24,5 +18,3 @@ export interface IImage {
 export type ResCloth = Cloth & { sizes: Size[] } & { images: Image[] } & {
   collection: Collection;
 } & { category: Category };
-
-export type ResCategory = Category & { models: ResCloth[] };

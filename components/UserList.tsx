@@ -16,16 +16,15 @@ import {
 } from "@dnd-kit/sortable";
 import React from "react";
 import { SortableUser } from "./SortableUser";
+import { Image } from "@prisma/client";
 import { Box, Grid } from "@radix-ui/themes";
-import { IImage } from "@/types/types";
 
 interface UserListProps {
-  images: IImage[];
-  items: File[];
-  setImages: (value: React.SetStateAction<IImage[]>) => void;
+  images: Image[];
+  setImages: (value: React.SetStateAction<Image[]>) => void;
 }
 
-export default function UserList({ images, setImages, items }: UserListProps) {
+export default function UserList({ images, setImages }: UserListProps) {
   function onDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (active.id === over?.id) {
@@ -59,8 +58,8 @@ export default function UserList({ images, setImages, items }: UserListProps) {
             strategy={verticalListSortingStrategy}
           >
             <Grid columns="3" rows="repeat(6, max-content)" gap="4px">
-              {items.map((image) => (
-                <SortableUser key={image.name} image={image} />
+              {images.map((image) => (
+                <SortableUser key={image.id} image={image} />
               ))}
             </Grid>
           </SortableContext>

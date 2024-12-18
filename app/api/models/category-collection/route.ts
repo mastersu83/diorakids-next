@@ -6,9 +6,8 @@ export async function GET(req: NextRequest) {
   const categoryId = req.nextUrl.searchParams.get("categoryId") || "";
   const collectionModels = await prisma.cloth.findMany({
     where: {
-      collectionId:
-        Number(collectionId) === 0 ? undefined : Number(collectionId),
-      categoryId: Number(categoryId) === 0 ? undefined : Number(categoryId),
+      collectionId: Number(collectionId),
+      categoryId: Number(categoryId),
     },
     include: {
       sizes: true,

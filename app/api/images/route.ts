@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/prisma-client";
 import fs from "fs";
-import { IImage } from "@/types/types";
 
 export async function GET(req: NextRequest) {
   const files = await prisma.image.findMany();
@@ -9,25 +8,28 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(files);
 }
 
-export async function POST(req: NextRequest) {
-  "use server";
-  const fileName = [];
+export async function POST(req: Request) {
   const formData = await req.formData();
+
+  const fileName = [];
   const formDataEntryValues = Array.from(formData.values());
   for (const formDataEntryValue of formDataEntryValues) {
     if (
       typeof formDataEntryValue === "object" &&
       "arrayBuffer" in formDataEntryValue
     ) {
-      const file = formDataEntryValue;
+      const file = formDataEntryValue as {
+        name: string;
+      } & Blob;
       const buffer = Buffer.from(await file.arrayBuffer());
-      fs.writeFileSync(`public/images/${file.name}`, buffer);
+      fs.writeFileSync(`public/uploads/${file.name}`, buffer);
       fileName.push(file.name);
     }
   }
 
-  const imagesCloth: IImage[] = fileName.map((i, index) => {
-    return { imageUrl: i, id: index + 1 };
+  const imagesCloth = fileName.map((i, index) => {
+    return { imageUrl: i, id: String(index + 1) };
   });
+
   return NextResponse.json(imagesCloth);
 }

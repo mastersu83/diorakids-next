@@ -1,7 +1,7 @@
 import { ModelPage } from "@/components/pages/ModelPage";
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: number }>;
 }
 
 export default async function Page({ params }: PageProps) {

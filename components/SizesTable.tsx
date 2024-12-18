@@ -1,6 +1,6 @@
+import { Size } from "@prisma/client";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Size } from "@prisma/client";
 
 interface ISizesTable {
   sizes: Size[] | undefined;

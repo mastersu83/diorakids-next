@@ -42,9 +42,9 @@ export const CustomBreadcrumbs = () => {
         {/*  )*/}
         {/*)}*/}
       </div>
-      <Link href="/admin" onClick={() => setEditMode(true)}>
-        Edit
-      </Link>
+      {/*<Link href="/admin" onClick={() => setEditMode(true)}>*/}
+      {/*  Edit*/}
+      {/*</Link>*/}
     </div>
   );
 };

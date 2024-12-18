@@ -4,10 +4,7 @@ import { prisma } from "@/prisma/prisma-client";
 export async function GET(req: NextRequest) {
   const collectionId = req.nextUrl.searchParams.get("collectionId") || "";
   const collectionModels = await prisma.cloth.findMany({
-    where: {
-      collectionId:
-        Number(collectionId) === 0 ? undefined : Number(collectionId),
-    },
+    where: { collectionId: Number(collectionId) },
     include: {
       sizes: true,
       images: true,

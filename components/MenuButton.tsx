@@ -1,9 +1,9 @@
-import { ICollection } from "@/types/types";
+import { Collection } from "@prisma/client";
 
 interface IButton {
   setItemId: (id: number) => void;
   itemId: number;
-  item: ICollection;
+  item: Collection;
 }
 
 export const MenuButton = ({ itemId, setItemId, item }: IButton) => {

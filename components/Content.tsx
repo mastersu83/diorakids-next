@@ -5,12 +5,10 @@ import { useModelStore } from "@/store/models";
 import { useEffect } from "react";
 
 export const Content = () => {
-  const { models, setModels, categoryId, collectionId } = useModelStore(
-    (state) => state
-  );
+  const { models, setModels } = useModelStore((state) => state);
 
   useEffect(() => {
-    setModels({ collectionId, categoryId });
+    setModels({ collectionId: 0, categoryId: 0 });
   }, []);
 
   if (!models?.length) {
@@ -18,7 +16,7 @@ export const Content = () => {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-12 mb-10 sticky top-0">
+    <div className="grid grid-cols-3 gap-12 mb-10">
       {models.map((card) => (
         <ProductItem key={card.id} cloth={card} />
       ))}
