@@ -25,7 +25,7 @@ export const Categories = () => {
   }
 
   return (
-    <div className="h-14 w-max p-1.5 flex items-center justify-between gap-x-4 mb-10">
+    <div className="sticky top-0 z-20 bg-white rounded-2xl h-14 w-max p-1.5 flex items-center justify-between gap-x-4 mb-10">
       <div className="flex items-center justify-between gap-x-2">
         <MenuButton
           setItemId={handleCollectionModels}
