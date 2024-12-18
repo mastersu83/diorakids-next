@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { MenuButton } from "@/components/MenuButton";
+import {MenuButton} from "@/components/MenuButton";
 import useSWR from "swr";
-import { getCategories } from "@/service/categoriesApi";
-import { useModelStore } from "@/store/models";
+import {getCategories} from "@/service/categoriesApi";
+import {useModelStore} from "@/store/models";
 
 export const Categories = () => {
   const { data: categories } = useSWR("categories", getCategories);

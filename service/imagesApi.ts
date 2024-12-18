@@ -7,7 +7,7 @@ export const getImages = async (): Promise<Image[]> => {
 
 export const uploadImages = async (images: File[]): Promise<Image[]> => {
   const formData = new FormData();
-  images.forEach((image, i) => {
+  images.forEach((image) => {
     formData.append(image.name, image);
   });
   return await ky.post("/api/images", { body: formData }).json();
