@@ -20,7 +20,7 @@ export const Logo = ({ letter }: ILogo) => {
         delay: letter.delay,
         duration: 3,
         repeat: Infinity,
-        repeatDelay: 8,
+        repeatDelay: 6,
         type: "spring",
         repeatType: "loop",
       }}
